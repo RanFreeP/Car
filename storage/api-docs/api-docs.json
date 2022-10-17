@@ -1,0 +1,372 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "My First API",
+        "version": "0.1"
+    },
+    "servers": [
+        {
+            "url": "http://my-default-host.com",
+            "description": "Основной API"
+        }
+    ],
+    "paths": {
+        "/api/car/create": {
+            "post": {
+                "tags": [
+                    "Car"
+                ],
+                "summary": "Создание автомобиля",
+                "operationId": "f252f89cce141a9f90435a9ee2d6e4db",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "mark": {
+                                        "type": "string"
+                                    },
+                                    "model": {
+                                        "type": "string"
+                                    },
+                                    "year": {
+                                        "type": "integer"
+                                    }
+                                },
+                                "type": "object",
+                                "example": {
+                                    "mark": "subaru",
+                                    "model": "impreza",
+                                    "year": "2020"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "'mark' => ['required', 'string', 'min:4', 'max:15']<br />\n    'model' => ['required', 'string', 'min:4', 'max:15']<br />\n    'year' => ['required', 'integer', 'min:4', 'max:4']<br />",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": [
+                                    "'message' => 'OK', 'car' => $newCar"
+                                ]
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "'message' => 'error', 'error' => 'Сообщение ошибки'"
+                    }
+                }
+            }
+        },
+        "/api/car/{id}": {
+            "put": {
+                "tags": [
+                    "Car"
+                ],
+                "summary": "Редактирование автомобиля",
+                "operationId": "f6790c0d0adecf09eaaa12ddb8e649e8",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "mark": {
+                                        "type": "string"
+                                    },
+                                    "model": {
+                                        "type": "string"
+                                    },
+                                    "year": {
+                                        "type": "integer"
+                                    }
+                                },
+                                "type": "object",
+                                "example": {
+                                    "mark": "subaru",
+                                    "model": "impreza",
+                                    "year": "2020"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "'mark' => ['required', 'string', 'min:4', 'max:15']<br />\n    'model' => ['required', 'string', 'min:4', 'max:15']<br />\n    'year' => ['required', 'integer', 'min:4', 'max:4']<br />",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": [
+                                    "'message' => 'OK', 'car' => $car"
+                                ]
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "'message' => 'error', 'error' => 'Сообщение ошибки'"
+                    }
+                }
+            }
+        },
+        "api/car/{id}": {
+            "delete": {
+                "tags": [
+                    "Car"
+                ],
+                "summary": "Удаление автомобиля",
+                "operationId": "e9fb35911e7ecc2da05193029519479f",
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": [
+                                    "'message' => 'OK', 'description' => 'Автомобиль успешно удален'"
+                                ]
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "'message' => 'error', 'error' => 'Сообщение ошибки'"
+                    }
+                }
+            }
+        },
+        "/api/auth": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Авторизация",
+                "operationId": "ed6f4db6905483a8ab23a2f1da10212c",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "oneOf": [
+                                            {
+                                                "type": "string"
+                                            }
+                                        ]
+                                    },
+                                    "password": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object",
+                                "example": {
+                                    "name": "79990594565",
+                                    "password": "12345qwerty"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "'name' => ['required', 'string', 'min:11', 'max:12'] <br />\n    'password' => ['required', 'string', 'min:5', 'max:30']",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": {
+                                    "token": "5|8p5vQUtXUBVWAMEOCbvO5ZVsg6IAh5tHobt35gRD"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Validation error"
+                    },
+                    "402": {
+                        "description": "Логин не зарегистрирован!"
+                    },
+                    "401": {
+                        "description": "Предоставленные учетные данные неверны."
+                    }
+                }
+            }
+        },
+        "/api/useCar": {
+            "post": {
+                "tags": [
+                    "UseCar"
+                ],
+                "summary": "Привязка автомобиля к пользователю",
+                "operationId": "830bddea3eca43187e7db33bf779de19",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "car_id": {
+                                        "type": "integer"
+                                    },
+                                    "user_id": {
+                                        "type": "integer"
+                                    }
+                                },
+                                "type": "object",
+                                "example": {
+                                    "car_id": "1",
+                                    "user_id": "1"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "'car_id' => ['required', 'numeric',]<br />\n    'user_id' => ['required', 'numeric',]<br />",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": [
+                                    "'message' => 'OK', 'description' => $newUseCar"
+                                ]
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "'message' => 'error', 'error' => 'Сообщение ошибки'"
+                    }
+                }
+            }
+        },
+        "/api/create": {
+            "post": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Создание пользователя",
+                "operationId": "1a5521a6a75f03f3cc1db732b11b6741",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "access_admin": {
+                                        "type": "numeric"
+                                    },
+                                    "password": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object",
+                                "example": {
+                                    "name": "Eldar",
+                                    "access_admin": "false",
+                                    "password": "123456"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "'name' => ['required', 'string', 'min:4', 'max:15']<br />\n    'access_admin' => ['required', 'numeric', 'boolean']<br />\n    'password' => ['required', 'string', 'min:4', 'max:15']<br />",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": [
+                                    "'message' => 'OK', 'user' => $user"
+                                ]
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "'message' => 'error', 'error' => 'Сообщение ошибки'"
+                    }
+                }
+            }
+        },
+        "api/user/{id}": {
+            "put": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Редактирование пользователя",
+                "operationId": "001228143230cc0bf9f631acb72abc3b",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "access_admin": {
+                                        "type": "numeric"
+                                    }
+                                },
+                                "type": "object",
+                                "example": {
+                                    "name": "Eldar",
+                                    "access_admin": "false"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "'name' => ['required', 'string', 'min:4', 'max:15']<br />\n    'access_admin' => ['required', 'numeric', 'boolean']<br />",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": [
+                                    "'message' => 'OK', 'user' => $user"
+                                ]
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "'message' => 'error', 'error' => 'Сообщение ошибки'"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Удаление пользователя",
+                "operationId": "7f8670e6392ca57a303635c40159676a",
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": [
+                                    "'message' => 'OK', 'description' => 'Пользователь успешно удален'"
+                                ]
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "'message' => 'error', 'error' => 'Сообщение ошибки'"
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Car": {
+                "title": "Car",
+                "description": "Car model",
+                "xml": {
+                    "name": "Car"
+                }
+            }
+        }
+    }
+}
