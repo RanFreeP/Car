@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('mark');
             $table->string('model');
-            $table->string('year');
+            $table->integer('year');
             $table->timestamps();
         });
     }
